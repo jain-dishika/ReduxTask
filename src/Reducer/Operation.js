@@ -4,13 +4,28 @@ const initialState = {
 const AddingTheUser = (state = initialState, action) => {
     switch(action.type){
         case "ADD-USER" :  {
-            // console.log("inside Reducer", action.payLoad)
             return {
                 ...state,
                 users: [...state.users, action.payLoad],
             };
         }
-       
+        case "DELETE-USER" : {
+            console.log("HERE", action.index)
+            const updatedItems = state.users.filter((item, index) => index !== action.index);
+            // console.log(updatedItems);
+            return{
+                ...state,
+                users: updatedItems,
+            }
+        }
+        case "UPDATE-USER" : {
+            console.log("HERE", action.payLoad)
+            const updatedItems = state.users.map((item, index) => index === action.payLoad.id ? { ...item, ...action.payLoad.details } : item);
+            return {
+                ...state,
+                users: updatedItems,
+            };  
+        }
         default : return state;
     }
 }

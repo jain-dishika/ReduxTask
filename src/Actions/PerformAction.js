@@ -3,3 +3,8 @@ export const addPeople = () => {
         type: "ADD-USER",
     }
 }
+export const deletePeople = () => {
+    return{
+        type: "DELETE-USER",
+    }
+}
