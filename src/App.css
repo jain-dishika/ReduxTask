@@ -1,0 +1,21 @@
+.navButton{
+  border: 0;
+  background-color: transparent;
+  margin: 5px;
+  font-size: medium;
+}
+.tableButton{
+  color: white;
+  background-color: rgb(214, 31, 31);
+  border: none;
+  border-radius: 10px;
+}
+.LoginPage{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+.react-datepicker__input-container input{
+  width: 100%;
+}
