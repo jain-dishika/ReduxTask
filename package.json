@@ -7,11 +7,9 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-<<<<<<< HEAD
-=======
     "axios": "^1.5.1",
->>>>>>> a57f6dcb3d84c31346b57bb6264842eb3e6a6fd8
     "bootstrap": "^5.3.2",
+    "npm": "^10.1.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.0",
     "react-datepicker": "^4.18.0",
