@@ -11,23 +11,21 @@ import axios from 'axios';
 const UserList = () => {
   const dispatch = useDispatch();
   const { users, isLoading, error } = useSelector((state) => state.list);
-  console.log("nashaaa ",users);
+  // console.log("nashaaa ",users);
+
   const getAllData = async() =>{
-    dispatch({ type: "FETCH_DATA_REQUEST" });
-    await axios
-      .get('http://localhost:8047/users/')
-      .then((response) => {
-        // console.log("data is here only", response.data);
-        let res = response.data;
-        dispatch({ type: "FETCH_DATA_SUCCESS", payLoad: res });
-      })
-      .catch((error) => {
-        dispatch({ type: "FETCH_DATA_FAILURE", payLoad: error });
-      });
+    try {
+      dispatch({ type: "FETCH_DATA_REQUEST" });
+      const response = await axios.get('http://localhost:8047/users/');
+      const data = response.data;
+      dispatch({ type: "FETCH_DATA_SUCCESS", payLoad: data });
+    } catch (error) {
+      dispatch({ type: "FETCH_DATA_FAILURE", payLoad: error });
+    }
   }
   useEffect(() => {
     getAllData();
-  },[dispatch]);
+  },[]);
 
   const [name, setName] = useState("");
   const handleInputName = (e) => {
@@ -74,9 +72,9 @@ const UserList = () => {
     setShow(true);
   };
 
-  const updateUser = async(id, name, email, dob) => {
+  const updateUser = (id, name, email, dob) => {
     let details = { name, email, dob };
-    await axios
+    axios
     .put(`http://localhost:8047/users/${id}`, details)
     .then((response) => {
       console.log('Resource updated successfully.', response.data);
