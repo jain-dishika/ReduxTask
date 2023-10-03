@@ -24,7 +24,7 @@ const UserList = () => {
       .catch((error) => {
         dispatch({ type: "FETCH_DATA_FAILURE", payLoad: error });
       });
-  }, []);
+  },[dispatch]);
 
   if(users !== undefined && users.length > 0){
     console.log("user here", users);
