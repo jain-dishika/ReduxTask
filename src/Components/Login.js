@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch } from "react-redux";
- 
+import axios from "axios";
 const Login = () => {
     const [dob, setDOB] = useState(null);
     const [inputName, setInputName] = useState('');
@@ -16,26 +16,32 @@ const Login = () => {
         setInputName(e.target.value);
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // console.log('Input Value:', inputName, " ", inputEmail, " ", dob);
-    };
-
+    
     const handleInputEmail = (e) => {
         setInputEmail(e.target.value);
-    };
-
+      };
+      
     const handleDOBChange = (date) => {
       setDOB(date);
     };
-
+    
     const addUser = (name, email, dob) =>{
       // console.log('Input Value:', name, " ", email, " ", dob);
       let payLoad = {name , email, dob}
       dispatch({ type: "ADD-USER", payLoad });
     }
-  
-  return (
+    
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+        try {
+          // console.log(inputEmail, " ", inputName)
+          await axios.post('http://localhost:8047/users/entry', {name: inputName, email: inputEmail });
+        } catch (error) {
+          console.error('Error storing data:', error);
+        }
+        // console.log('Input Value:', inputName, " ", inputEmail, " ", dob);
+    };
+    return (
     <>
       <Form style={{"width":"40%"}} onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="Name">
@@ -54,12 +60,12 @@ const Login = () => {
         <DatePicker
           selected={dob}
           onChange={handleDOBChange}
-          dateFormat="MM/dd/yyyy" // Define your preferred date format
+          dateFormat="yyyy/MM/dd" // Define your preferred date format
           isClearable
           placeholderText="Select Date of Birth" 
         />
       </Form.Group>
-        <Button variant="primary" type="submit" style={{"margin" : "20px"}} onClick={()=>addUser(inputName, inputEmail, dob)}>
+        <Button variant="primary" type="submit" style={{"margin" : "20px"}} onClick={()=> addUser(inputName, inputEmail, dob)}>
           ADD
         </Button>
       </Form>

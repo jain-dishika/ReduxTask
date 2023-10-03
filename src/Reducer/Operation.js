@@ -30,23 +30,24 @@ const AddingTheUser = (state = initialState, action) => {
                 error: action.payLoad,
             };
         case "ADD-USER": {
+            console.log("hete", action)
             return {
                 ...state,
                 users: [...state.users, action.payLoad],
             };
         }
         case "DELETE-USER": {
-            // console.log("HERE", action.index)
-            const updatedItems = state.users.filter((item, index) => index !== action.index);
-            // console.log(updatedItems);
+            // console.log("HERE", action);
+            const updatedItems = state.users.filter((item) => item.id !== action.payLoad);
+            console.log(updatedItems);
             return {
                 ...state,
                 users: updatedItems,
             }
         }
         case "UPDATE-USER": {
-            // console.log("HERE", action.payLoad)
-            const updatedItems = state.users.map((item, index) => index === action.payLoad.id ? { ...item, ...action.payLoad.details } : item);
+            console.log("HERE UPDATE", action.payLoad)
+            const updatedItems = state.users.map((item) => item.id === action.payLoad.id ? { ...item, ...action.payLoad.details } : item);
             return {
                 ...state,
                 users: updatedItems,
